@@ -8,7 +8,7 @@ interface ChatCompletionResponse {
 
 export const generateSVG = async (
   prompt: string,
-  model: 'gpt-3.5-turbo' | 'gpt-4' | 'gpt-4-turbo-preview'
+  model: 'gpt-3.5-turbo' | 'gpt-4' | 'gpt-4-turbo-preview' | 'o1-mini' | 'o1-preview'
 ): Promise<string> => {
   const apiKey = process.env.REACT_APP_OPENAI_API_KEY;
   if (!apiKey) {
@@ -26,16 +26,11 @@ export const generateSVG = async (
         model: model,
         messages: [
           {
-            role: 'system',
-            content: 'You are an SVG generation expert. Create a simple, clean SVG code for the given prompt.'
-          },
-          {
             role: 'user',
             content: `Create an SVG drawing of: ${prompt}. Answer with only SVG code, no other text or markdown.`
           }
         ],
-        temperature: 0.7,
-        max_tokens: 2000,
+
       }),
     });
 
