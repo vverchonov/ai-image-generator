@@ -23,8 +23,5 @@
       "src": ".*",
       "dest": "/index.html"
     }
-  ],
-  "env": {
-    "REACT_APP_ANTHROPIC_API_KEY": "@react_app_anthropic_api_key"
-  }
+  ]
 } 

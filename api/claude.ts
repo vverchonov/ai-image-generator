@@ -26,6 +26,11 @@ export default async function handler(
     return response.status(405).json({ error: 'Method not allowed' });
   }
 
+  const apiKey = process.env.REACT_APP_ANTHROPIC_API_KEY;
+  if (!apiKey) {
+    return response.status(500).json({ error: 'API key not configured' });
+  }
+
   try {
     const { model, content } = request.body;
 
@@ -33,7 +38,7 @@ export default async function handler(
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': process.env.REACT_APP_ANTHROPIC_API_KEY || '',
+        'x-api-key': apiKey,
         'anthropic-version': '2023-06-01'
       },
       body: JSON.stringify({
