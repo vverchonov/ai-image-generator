@@ -77,7 +77,6 @@ function App() {
       generateWithModel(prompt, model, index);
     });
   };
-
   return (
     <div className="App min-h-screen bg-gray-50">
       <div className="container mx-auto py-8">
