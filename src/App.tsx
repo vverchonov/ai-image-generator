@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import './App.css';
-import DrawingPrompt from './components/DrawingPrompt.tsx';
-import DrawingResults, { ModelResult } from './components/DrawingResults.tsx';
-import { generateSVG } from './services/openai.ts';
-import { generateSVGWithClaude } from './services/anthropic.ts';
-import { generateSVGWithGemini } from './services/gemini.ts';
+import DrawingPrompt from './components/DrawingPrompt';
+import DrawingResults, { ModelResult } from './components/DrawingResults';
+import { generateSVG } from './services/openai';
+import { generateSVGWithClaude } from './services/anthropic';
+import { generateSVGWithGemini } from './services/gemini';
 
 // Define model groups for different APIs
 const OPENAI_MODELS = ['gpt-3.5-turbo', 'gpt-4', 'o1-mini', 'o1-preview'] as const;
