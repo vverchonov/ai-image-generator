@@ -13,7 +13,8 @@
       "src": "api/**/*.ts",
       "use": "@vercel/node",
       "config": {
-        "maxDuration": 60
+        "maxDuration": 60,
+        "memory": 1024
       }
     }
   ],
@@ -30,11 +31,5 @@
       "src": ".*",
       "dest": "/index.html"
     }
-  ],
-  "functions": {
-    "api/**/*.ts": {
-      "memory": 1024,
-      "maxDuration": 60
-    }
-  }
+  ]
 } 
