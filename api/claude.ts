@@ -1,5 +1,24 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
 
+const TIMEOUT_DURATION = 50000; // 50 seconds
+
+const fetchWithTimeout = async (url: string, options: RequestInit, timeout: number) => {
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), timeout);
+
+  try {
+    const response = await fetch(url, {
+      ...options,
+      signal: controller.signal
+    });
+    clearTimeout(id);
+    return response;
+  } catch (error) {
+    clearTimeout(id);
+    throw error;
+  }
+};
+
 export default async function handler(
   request: VercelRequest,
   response: VercelResponse
@@ -34,24 +53,28 @@ export default async function handler(
   try {
     const { model, content } = request.body;
 
-    const claudeResponse = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': apiKey,
-        'anthropic-version': '2023-06-01'
+    const claudeResponse = await fetchWithTimeout(
+      'https://api.anthropic.com/v1/messages',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': apiKey,
+          'anthropic-version': '2023-06-01'
+        },
+        body: JSON.stringify({
+          model,
+          max_tokens: 2000,
+          messages: [
+            {
+              role: 'user',
+              content
+            }
+          ]
+        })
       },
-      body: JSON.stringify({
-        model,
-        max_tokens: 2000,
-        messages: [
-          {
-            role: 'user',
-            content
-          }
-        ]
-      })
-    });
+      TIMEOUT_DURATION
+    );
 
     if (!claudeResponse.ok) {
       const error = await claudeResponse.json();
@@ -60,10 +83,15 @@ export default async function handler(
 
     const data = await claudeResponse.json();
     response.status(200).json(data);
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error proxying to Claude:', error);
+    if (error.name === 'AbortError') {
+      return response.status(504).json({
+        error: 'Request timeout - Claude API took too long to respond'
+      });
+    }
     response.status(500).json({
-      error: 'Failed to proxy request to Claude'
+      error: error.message || 'Failed to proxy request to Claude'
     });
   }
 } 
