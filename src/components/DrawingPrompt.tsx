@@ -15,6 +15,7 @@ const DrawingPrompt = ({ onSubmit }: DrawingPromptProps) => {
     }
   };
 
+  
   return (
     <div className="max-w-2xl mx-auto p-4">
       <div className="bg-white rounded-lg shadow-md p-6">
