@@ -23,22 +23,15 @@ export const generateSVGWithClaude = async (
     - You may include a brief description of what you created`;
 
   try {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
+    // Use the Vercel serverless function endpoint
+    const response = await fetch('/api/claude', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': apiKey,
-        'anthropic-version': '2023-06-01'
       },
       body: JSON.stringify({
-        model: model,
-        max_tokens: 2000,
-        messages: [
-          {
-            role: 'user',
-            content: `${systemPrompt}\n\nCreate an SVG drawing of: ${prompt}`
-          }
-        ]
+        model,
+        content: `${systemPrompt}\n\nCreate an SVG drawing of: ${prompt}`
       }),
     });
 
@@ -53,7 +46,7 @@ export const generateSVGWithClaude = async (
       throw new Error('Empty response from Claude API');
     }
 
-    // Use the same SVG extraction function from OpenAI service
+    // Use the same SVG extraction logic
     const svgMatch = content.match(/```(?:xml|svg)?\s*(<svg[\s\S]*?<\/svg>)\s*```/);
     if (svgMatch) {
       const svgCode = svgMatch[1];
