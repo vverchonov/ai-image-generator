@@ -21,7 +21,11 @@ export const generateSVGWithGemini = async (
     - Generate the SVG code wrapped in \`\`\`xml code blocks
     - Use a 512x512 viewBox
     - Keep the design minimal and clean
-    - Use appropriate colors
+    - Use geometric shapes like ovals, circles, rectangles, and thin lines
+    - Use pastel colors and minimal accents (e.g., pink, yellow, and purple)
+    - Ensure the design feels quirky, whimsical, and surreal
+    - Include playful and abstract character designs with soft organic shapes
+    - Avoid backgrounds, gradients, text, or detailed patterns
     - Make sure the SVG is valid and can be rendered directly
     - Include helpful comments in the SVG code
     - You may include a brief description of what you created`;

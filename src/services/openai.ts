@@ -27,7 +27,7 @@ export const generateSVG = async (
         messages: [
           {
             role: 'user',
-            content: `Create an SVG drawing of: ${prompt}. Answer with only SVG code, no other text or markdown.`
+            content: `Create an SVG drawing of: ${prompt}. Create SVG illustrations using minimalist and abstract designs. Use simple geometric shapes like circles, ovals, rectangles, and thin lines. Keep the designs playful and whimsical with an emphasis on childlike simplicity. Avoid symmetry and overly detailed patterns. Use a limited color palette with pastel tones and small color accents (e.g., pinks, yellows, and purples). Ensure characters have soft, organic shapes and a surreal but charming aesthetic. Avoid backgrounds, gradients, text, or photorealistic details. Answer with only SVG code, no other text or markdown.`
           }
         ],
 
