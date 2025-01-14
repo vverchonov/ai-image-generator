@@ -8,7 +8,7 @@ import { generateSVGWithGemini } from './services/gemini';
 
 // Define model groups for different APIs
 const OPENAI_MODELS = ['gpt-3.5-turbo', 'gpt-4', 'o1-mini', 'o1-preview'] as const;
-const ANTHROPIC_MODELS = ['claude-3-opus-20240229', 'claude-3-sonnet-20240229'] as const;
+const ANTHROPIC_MODELS = ['claude-3-sonnet-20240229'] as const;
 const GEMINI_MODELS = ['gemini-1.5-pro'] as const;
 
 // Combine all models
